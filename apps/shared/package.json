@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "tsx --watch ./run.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
   "dependencies": {
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "zod": "^3.25.67"
   },
