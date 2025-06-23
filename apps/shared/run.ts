@@ -1,17 +1,18 @@
 import { z } from "zod/v4";
 
-export const AddressSchema = z.object({
+const addressSchema = z.object({
     street: z.string(),
-    postCode: z.string().refine((val) => val.length === 6),
+    postCode: z.string().length(6),
 });
-
-const UserSchema = z.object({
-    id: z.union([z.string(), z.number()]),
+const userSchema = z.object({
+    id: z.string().optional(),
     name: z.string(),
-    address: AddressSchema,
+    address: addressSchema,
     get friends() {
-        return z.array(UserSchema).optional();
+        return z.array(userSchema).optional();
     },
 });
 
-type User = z.infer<typeof UserSchema>;
+type User = z.infer<typeof userSchema>;
+
+type People = User[];

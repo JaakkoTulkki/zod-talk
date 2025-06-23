@@ -21,11 +21,5 @@ export const ParamsSchema = z.object({
     name: z.string(),
 });
 
-export const QuerySchema = z.object({
-    friends: z.boolean(),
-});
-
-export const BodySchema = z.object({
-    name: z.string(),
-    address: AddressSchema,
-});
+export const BodySchema = UserSchema.omit({ id: true });
+export type CreateBody = z.infer<typeof BodySchema>;

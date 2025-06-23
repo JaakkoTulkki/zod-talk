@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import "../App.css";
 import React from "react";
 import { useForm, type AnyFieldApi } from "@tanstack/react-form";
-import { AddressSchema, UserSchema } from "shared";
+import { AddressSchema, UserSchema, type CreateBody } from "shared";
 
 export const Route = createFileRoute("/")({
     component: UserForm,
@@ -27,25 +27,30 @@ function UserForm() {
             postCode: "",
         },
         onSubmit: async ({ value: { name, street, postCode } }) => {
+            const body: CreateBody = {
+                name,
+                address: { street, postCode },
+            };
             const response = await fetch("http://localhost:3000/user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    name,
-                    address: { street, postCode },
-                }),
+                body: JSON.stringify(body),
             });
             const data = await response.json();
             try {
                 UserSchema.parse(data);
-                console.log("User created successfully:", data);
-                form.reset();
-                window.location.href = `/user/${data.name}`;
-            } catch (error: unknown) {
-                console.error("Invalid user data:", error);
+            } catch (e) {
+                console.error("Invalid user data:", e);
                 throw new Error("Failed to create user: ");
+            }
+            if (response.ok) {
+                form.reset();
+                window.location.href = `/user/${name}`;
+            } else {
+                console.error("Failed to create user");
+                console.log(await response.json());
             }
         },
     });
@@ -150,3 +155,14 @@ function UserForm() {
         </div>
     );
 }
+
+// const data = await response.json();
+//             try {
+//                 UserSchema.parse(data);
+//                 console.log("User created successfully:", data);
+//                 form.reset();
+//                 window.location.href = `/user/${data.name}`;
+//             } catch (error: unknown) {
+//                 console.error("Invalid user data:", error);
+//                 throw new Error("Failed to create user: ");
+//             }

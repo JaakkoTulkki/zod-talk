@@ -1,11 +1,6 @@
 import express from "express";
 import cors from "cors";
-import {
-    BodySchema,
-    GetUserRequestParamSchema,
-    QuerySchema,
-    UserSchema,
-} from "shared";
+import { BodySchema, GetUserRequestParamSchema, UserSchema } from "shared";
 import { validate } from "./validate.ts";
 
 const app = express();
@@ -24,7 +19,6 @@ const users = [
     },
 ];
 
-// app.options("*", cors());
 app.use(
     cors({
         origin: "*",
@@ -80,11 +74,3 @@ app.post(
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
-//  const { name, address } = req.body;
-//     const user = {
-//         id: (users.length + 1).toString(),
-//         name,
-//         address,
-//     };
-//     users.push(user);
-//     return res.status(201).send(user);

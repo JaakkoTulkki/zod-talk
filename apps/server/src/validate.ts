@@ -48,3 +48,13 @@ export const validate = <Res = any, P = any, B = any, Q = any>(
         }
     };
 };
+
+// validate({
+//         params: GetUserRequestParamSchema,
+//         response: UserSchema,
+//     }),
+
+// validate({
+//         body: BodySchema,
+//         response: UserSchema,
+//     }),
