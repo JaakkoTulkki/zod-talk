@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import { z, ZodType } from "zod/v4";
 
 const addressSchema = z.object({
     street: z.string(),
@@ -16,3 +16,5 @@ const userSchema = z.object({
 type User = z.infer<typeof userSchema>;
 
 type People = User[];
+
+z.infer<>
