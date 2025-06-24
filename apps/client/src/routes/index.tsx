@@ -28,7 +28,7 @@ function UserForm() {
       postCode: "",
     },
     onSubmit: async ({ value: { name, street, postCode } }) => {
-      const body: CreateBody = {
+      const body = {
         name,
         address: { street, postCode },
       };
@@ -41,14 +41,6 @@ function UserForm() {
       });
 
       if (response.ok) {
-        const data = await response.json();
-
-        try {
-          UserSchema.parse(data);
-        } catch (e) {
-          console.error("Invalid user data:", e);
-          throw new Error("Failed to create user: ");
-        }
         form.reset();
         window.location.href = `/user/${name}`;
       } else {
@@ -133,7 +125,7 @@ function UserForm() {
         >
           {([canSubmit, isSubmitting]) => (
             <button type="submit" disabled={!canSubmit}>
-              {isSubmitting ? "..." : "Submit"}
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           )}
         </form.Subscribe>
