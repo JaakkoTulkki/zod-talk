@@ -1,4 +1,4 @@
-import { z, ZodType } from "zod/v4";
+import { z, type ZodType } from "zod/v4";
 
 const envSchema = z.object({
   ENVIRONMENT: z.literal(["prod", "dev", "test"]),
